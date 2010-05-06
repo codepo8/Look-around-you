@@ -15,7 +15,8 @@ YUI().use('node',function(Y){
               '&lat=' + cur.centroid.latitude + '&lng='+
                cur.centroid.longitude+'&style=full&callback=yqlgeo.wiki';
     yqlgeo.get(url);
-    document.getElementById('neighbours').innerHTML = 'Loading neighbouring areas';                      
+    var container = document.getElementById('neighbours');
+    container.innerHTML = 'Loading neighbouring areas';                      
     url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from'+
           '%20geo.places.neighbors%20where%20neighbor_woeid%3D'+
            cur.woeid+'&diagnostics=false&format=json&'+
@@ -23,13 +24,8 @@ YUI().use('node',function(Y){
     yqlgeo.get(url);
   };
   yqlgeo.get = function(url){
-    var old = document.getElementById('getjson');
-    if(old){
-      old.parentNode.removeChild(old);
-    }  
     var s = document.createElement('script');
     s.setAttribute('src',url);
-    s.setAttribute('id','getjson');
     document.getElementsByTagName('head')[0].appendChild(s);
   };
   yqlgeo.rendermap = function(){
@@ -91,16 +87,18 @@ YUI().use('node',function(Y){
   };
   yqlgeo.neighbours = function(o){
     var container = document.getElementById('neighbours');
-    if(!o.error && undefined !== o.query.results.place){
-    var out = '<ul><li>Around this area:<ul>';
-    yqlgeo.neighbourdata = o.query.results.place;
-    var all = o.query.results.place.length;
-    for(var i=0;i<all;i++){
-      var cur = o.query.results.place[i];
-      out+='<li><a href="#n'+i+'">'+cur.name+'</a></li>';
-    }
-    out += '</ul></li></ul>';
-    container.innerHTML = out;
+    if(!o.error && o.query.results && o.query.results.place){
+      var out = '<ul><li>Around this area:<ul>';
+      yqlgeo.neighbourdata = o.query.results.place;
+      var all = o.query.results.place.length;
+      for(var i=0;i<all;i++){
+        var cur = o.query.results.place[i];
+        out+='<li><a href="#n'+i+'">'+cur.name+'</a></li>';
+      }
+      out += '</ul></li></ul>';
+      container.innerHTML = out;
+    } else {
+      container.parentNode.removeChild(container);
     }
   };
   Y.delegate('click', function(e) {
