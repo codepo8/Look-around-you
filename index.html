@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+  <title>Look around you - points of interest lookup</title>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.8.0/build/reset-fonts-grids/reset-fonts-grids.css&2.8.0/build/base/base-min.css">
+  <link rel="stylesheet" type="text/css" href="lookaround.css">
+</head>
+<body class="yui-skin-sam">
+<div id="doc" class="yui-t7">
+
+  <div id="hd" role="banner">
+    <h1>Look around you&hellip;</h1>
+  </div>
+  <div id="bd" role="main">
+    <p class="intro">This web site tries to find your location and shows you points of interest from Wikipedia around you. It is a demo of what you can do with a few lines of code and the right tools these days.</p>
+    
+    <div class="yui-g">
+      <div class="yui-u first" id="map">
+        <p class="info">Trying to determine your location...</p>
+      </div>
+      <div class="yui-u" id="sights">
+      </div>
+    </div>
+    <div id="neighbours"></div>
+    <div id="children"></div>
+    
+    <p>The technology involved to create this site is:</p>
+    <ul>
+      <li>The <a href="http://dev.w3.org/geo/api/spec-source.html">W3C Geo Location API</a></li>
+      <li>Various <a href="http://developer.yahoo.com/geo/">Yahoo Geo</a> and <a href="http://developer.yahoo.com/yql">YQL lookups</a> bundled in the <a href="http://isithackday.com/hacks/geo/yql-geo-library/">YQLGeo library</a></li>
+      <li>The <a href="http://geonames.org">Geonames</a> WikiPedia lookup API</li>
+    </ul>
+    
+    <p>You can grab the source code of this demo on GitHub.</p>
+
+
+  </div>
+  <div id="ft" role="contentinfo">
+    <p>Written by <a href="http://wait-till-i.com">Christian Heilmann</a></p>
+  </div>
+</div>
+<script src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=SckyCn7V34EmWovT9sK7Z2ivzd2NtNKOMzTWVFwViDtkNLvxNKbiLqqWN9nqtdg-'"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/3.1.1/build/yui/yui-min.js"></script>
+<script src="yqlgeo.js"></script>
+<script src="lookaround.js"></script>
+</body>
+</html>
+
