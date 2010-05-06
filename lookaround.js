@@ -16,10 +16,10 @@ YUI().use('node',function(Y){
                cur.centroid.longitude+'&style=full&callback=yqlgeo.wiki';
     yqlgeo.get(url);
     document.getElementById('neighbours').innerHTML = 'Loading neighbouring areas';                      
-    var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from'+
-              '%20geo.places.neighbors%20where%20neighbor_woeid%3D'+
-              cur.woeid+'&diagnostics=false&format=json&'+
-              'callback=yqlgeo.neighbours';
+    url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from'+
+          '%20geo.places.neighbors%20where%20neighbor_woeid%3D'+
+           cur.woeid+'&diagnostics=false&format=json&'+
+          'callback=yqlgeo.neighbours';
     yqlgeo.get(url);
   };
   yqlgeo.get = function(url){
@@ -51,18 +51,18 @@ YUI().use('node',function(Y){
      yqlgeo.map.addOverlay(newMarker);
    }
    if(x[3] && x[4]){
-     var point = new YGeoPoint(x[3],x[4]);
+     point = new YGeoPoint(x[3],x[4]);
      points.push(point);
    }
    if(x[5] && x[6]){
-     var point = new YGeoPoint(x[5],x[6]);
+     point = new YGeoPoint(x[5],x[6]);
      points.push(point);
    }
    var zac = yqlgeo.map.getBestZoomAndCenter(points);
    var level = points.length > 1 ? zac.zoomLevel : zac.zoomLevel + 1;
    yqlgeo.map.drawZoomAndCenter(zac.YGeoPoint,level);
    yqlgeo.map.drawZoomAndCenter(points[0],level);
-  }
+  };
   yqlgeo.wiki = function(o){
     if(o.geonames){
       var out = '<ol>';
