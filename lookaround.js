@@ -23,7 +23,7 @@ YUI().use('node',function(Y){
     yqlgeo.get(url);
   };
   yqlgeo.get = function(url){
-    Y.one('head').append('<script src="'+url+'"></script>')
+    Y.one('head').append('<script src="'+url+'"></script>');
   };
   yqlgeo.rendermap = function(){
    var x = arguments;
