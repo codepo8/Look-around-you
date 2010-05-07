@@ -10,13 +10,12 @@ YUI().use('node',function(Y){
                           cur.boundingBox.northEast.longitude,
                           cur.boundingBox.southWest.latitude,
                           cur.boundingBox.southWest.longitude);
-    document.getElementById('sights').innerHTML = 'Loading landmarks&hellip;';                      
+    Y.one('#sights').set('innerHTML','Loading landmarks&hellip;');
     var url = 'http://ws.geonames.org/findNearbyWikipediaJSON?formatted=true'+
               '&lat=' + cur.centroid.latitude + '&lng='+
                cur.centroid.longitude+'&style=full&callback=yqlgeo.wiki';
     yqlgeo.get(url);
-    var container = document.getElementById('neighbours');
-    container.innerHTML = 'Loading neighbouring areas';                      
+    Y.one('#neighbours').set('innerHTML','Loading neighbouring areas...');
     url = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from'+
           '%20geo.places.neighbors%20where%20neighbor_woeid%3D'+
            cur.woeid+'&diagnostics=false&format=json&'+
@@ -24,14 +23,12 @@ YUI().use('node',function(Y){
     yqlgeo.get(url);
   };
   yqlgeo.get = function(url){
-    var s = document.createElement('script');
-    s.setAttribute('src',url);
-    document.getElementsByTagName('head')[0].appendChild(s);
+    Y.one('head').append('<script src="'+url+'"></script>')
   };
   yqlgeo.rendermap = function(){
    var x = arguments;
    if(x[1]){
-     yqlgeo.map = new YMap(document.getElementById('map'));
+     yqlgeo.map = new YMap(Y.one('#map')._node);
      yqlgeo.map.addTypeControl();
      yqlgeo.map.addZoomLong();
      yqlgeo.map.addPanControl();
@@ -83,10 +80,9 @@ YUI().use('node',function(Y){
       }
       out += '</ol>';
     }
-    document.getElementById('sights').innerHTML = out;
+    Y.one('#sights').set('innerHTML',out);
   };
   yqlgeo.neighbours = function(o){
-    var container = document.getElementById('neighbours');
     if(!o.error && o.query.results && o.query.results.place){
       var out = '<ul><li>Around this area:<ul>';
       yqlgeo.neighbourdata = o.query.results.place;
@@ -96,9 +92,9 @@ YUI().use('node',function(Y){
         out+='<li><a href="#n'+i+'">'+cur.name+'</a></li>';
       }
       out += '</ul></li></ul>';
-      container.innerHTML = out;
+      Y.one('#neighbours').set('innerHTML',out);
     } else {
-      container.parentNode.removeChild(container);
+      Y.one('#neighbours').remove();
     }
   };
   Y.delegate('click', function(e) {

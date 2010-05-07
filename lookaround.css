@@ -1,8 +1,8 @@
 html,body{background:#999;color:#000}
 #doc{background:#fff;border:1em solid #fff;}
 #map{width:300px;height:200px;}
-    body.js #sights li p{display:none;}
-    body.js #sights li.show p{display:block;}
+    body.js #sights li p{position:absolute;left:-9999px;;}
+    body.js #sights li.show p{position:relative;left:0;}
 a{color:#369;}
 #sights img{float:left;padding:5px;}
 #sights p{clear:both;}
